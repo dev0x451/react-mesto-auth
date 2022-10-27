@@ -48,6 +48,16 @@ function App() {
 
   useEffect(() => {
 
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) auth.checkToken(jwtToken).then((res) => {
+      if (res.data.email) {
+        setUserEmail(res.data.email);
+        setLoggedIn(true);
+      }
+    }).catch((err) => {
+      console.log('ошибка проверки токена', err);
+    })
+
     api.getInitialCards().then((cardsData) => {
 
       setCards(cardsData);
@@ -215,16 +225,6 @@ function App() {
     setUserEmail('');
     setLoggedIn(false);
   }
-
-  const jwtToken = localStorage.getItem('jwt');
-  if (jwtToken) auth.checkToken(jwtToken).then((res) => {
-    if (res.data.email) {
-      setUserEmail(res.data.email);
-      setLoggedIn(true);
-    }
-  }).catch((err) => {
-    console.log('ошибка проверки токена', err);
-  })
 
   return (
 

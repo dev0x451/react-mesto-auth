@@ -1,8 +1,9 @@
 class Api {
-  constructor({ url, token }) {
+  constructor({ url, headers }) {
     // тело конструктора
     this._url = url;
-    this._authToken = token;
+    // this._authToken = token;
+    this._headers = headers;
     this._cards = [];
   }
 
@@ -16,9 +17,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
-      headers: {
-        authorization: this._authToken
-      }
+      headers: this._headers
     }).then(this._checkResponse)
 
   }
@@ -26,10 +25,8 @@ class Api {
   addCard(cardName, cardLink) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._authToken,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
+
       body: JSON.stringify({
         name: cardName,
         link: cardLink
@@ -40,28 +37,21 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._authToken
-      }
+      headers: this._headers
+
     }).then(this._checkResponse)
   }
 
   getUser() {
     return fetch(`${this._url}/users/me`, {
-      headers: {
-        authorization: this._authToken,
-        'Content-Type': 'application/json'
-      }
+      headers: this._headers
     }).then(this._checkResponse)
   }
 
   setUser(userName, userAbout) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._authToken,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: userName,
         about: userAbout
@@ -72,10 +62,8 @@ class Api {
   setAvatar(avatarURL) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._authToken,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
+
       body: JSON.stringify({
         avatar: avatarURL
       })
@@ -87,22 +75,26 @@ class Api {
     if (like) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: 'PUT',
-        headers: {
-          authorization: this._authToken
-        }
+        headers: this._headers
+
       }).then(this._checkResponse)
     }
     else {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: 'DELETE',
-        headers: {
-          authorization: this._authToken
-        }
+        headers: this._headers
+
       }).then(this._checkResponse)
 
     }
   }
 }
 
-export const api = new Api({ url: 'https://mesto.nomoreparties.co/v1/cohort-49', token: '4a3a5ed7-c33c-4007-ab2f-bb1055621552' });
+export const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-49',
+  headers: {
+    authorization: '4a3a5ed7-c33c-4007-ab2f-bb1055621552',
+    'Content-Type': 'application/json'
+  }
+});
 
