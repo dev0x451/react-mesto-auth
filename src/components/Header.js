@@ -1,5 +1,4 @@
 import { Link, Route } from 'react-router-dom';
-
 import logo from '../images/mesto-logo.svg';
 
 function Header({ email, onSignOut }) {
@@ -9,8 +8,8 @@ function Header({ email, onSignOut }) {
       <img className="header__logo" src={logo} alt="логотип Mesto Russia" />
       <Route path="/cards">
         <div className="header__wrapper">
-          <p className="header__user">{email}</p>
-          <button className="header__logout" onClick={onSignOut}>Выйти</button>
+          <span className="header__user">{email}</span>
+          <span className="header__logout" onClick={onSignOut}>Выйти</span>
         </div>
       </Route>
       <Route path="/sign-up">

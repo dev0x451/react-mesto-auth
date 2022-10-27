@@ -7,10 +7,12 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Cards from './Cards';
 import Footer from './Footer';
-//import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from "./ProtectedRoute";
+
+import iconSuccess from '../images/Success.svg';
+import iconFail from '../images/Fail.svg';
 
 function App() {
 
@@ -19,15 +21,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-  const [infoTooltipIcon, setInfoTooltipIcon] = useState('../images/mesto-logo.svg');
-  const [infoTooltipText, setInfoTooltipText] = useState('УСПЕХ');
+  const [infoTooltipIcon, setInfoTooltipIcon] = useState('');
+  const [infoTooltipText, setInfoTooltipText] = useState('');
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [userEmail, setUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-  const [signUpSuccess, setSignUpSuccess] = useState(false);
-
+  const [signInStatus, setSignInStatus] = useState('');
 
   const history = useHistory();
 
@@ -63,7 +64,6 @@ function App() {
 
     if (loggedIn) history.push('/cards');
   }, [loggedIn]);
-
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -165,7 +165,8 @@ function App() {
   function handleInfoTooltipClose() {
 
     setIsInfoTooltipPopupOpen(false);
-    if (signUpSuccess) history.push('/sign-in')
+    if (signInStatus === 'signed-up') history.push('/sign-in')
+
 
   }
 
@@ -174,16 +175,16 @@ function App() {
     auth.signup(email, password).then((response) => {
 
       if (response?.data) {
-        setInfoTooltipIcon('../qwer.jpg');
-        setInfoTooltipText('SUCCCES');
-        setSignUpSuccess(true);
+        setInfoTooltipIcon(iconSuccess);
+        setInfoTooltipText('Вы успешно зарегистрировались!');
+        setSignInStatus('signed-up');
         setIsInfoTooltipPopupOpen(true);
       }
     }).catch(() => {
 
-      setInfoTooltipIcon('../qwer.jpg');
-      setInfoTooltipText('ERROR');
-      setSignUpSuccess(false);
+      setInfoTooltipIcon(iconFail);
+      setInfoTooltipText('Что-то пошло не так! Попробуйте ещё раз.');
+      setSignInStatus('failed');
       setIsInfoTooltipPopupOpen(true);
 
     })
@@ -198,10 +199,12 @@ function App() {
 
       setLoggedIn(true)
 
-    }).catch((err) => {
-      alert(err)
-      //здесь будет модал с ошибкой
-      // if (err.status === 401) { showTooltip('пользователь или пароль неверны')}
+    }).catch(() => {
+      setInfoTooltipIcon(iconFail);
+      setInfoTooltipText('Что-то пошло не так! Попробуйте ещё раз.');
+      setSignInStatus('signed-in');
+      setIsInfoTooltipPopupOpen(true);
+
     })
 
   }
@@ -254,11 +257,11 @@ function App() {
             <Route path="/sign-up">
               <Register name="signup" headerCaption="Регистрация" buttonCaption="Зарегистрироваться" onSubmit={handleSubmitSignup} />
               <InfoTooltip icon={infoTooltipIcon} text={infoTooltipText} isOpen={isInfoTooltipPopupOpen} onClose={handleInfoTooltipClose} />
-
             </Route>
 
             <Route path="/sign-in">
               <Register name="signin" headerCaption="Вход" buttonCaption="Войти" onSubmit={handleSubmitSignin} />
+              <InfoTooltip icon={infoTooltipIcon} text={infoTooltipText} isOpen={isInfoTooltipPopupOpen} onClose={handleInfoTooltipClose} />
             </Route>
 
             <Route path="*">

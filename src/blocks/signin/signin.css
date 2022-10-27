@@ -1,8 +1,4 @@
 .signin {
   width: 358px;
-  min-height: 461px;
-  margin: 60px auto 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 62px auto 0;
 }
