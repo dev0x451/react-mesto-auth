@@ -26,9 +26,10 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [signInStatus, setSignInStatus] = useState('');
+  const [cards, setCards] = useState([]);
 
   const history = useHistory();
 
@@ -44,12 +45,12 @@ function App() {
   }, []);
   // ^^ вызовется только один раз
 
-  const [cards, setCards] = useState([]);
 
   useEffect(() => {
 
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) auth.checkToken(jwtToken).then((res) => {
+
       if (res.data.email) {
         setUserEmail(res.data.email);
         setLoggedIn(true);
@@ -207,7 +208,15 @@ function App() {
 
       localStorage.setItem('jwt', response.token);
 
-      setLoggedIn(true)
+      auth.checkToken(response.token).then((res) => {
+
+        if (res.data.email) {
+          setUserEmail(res.data.email);
+          setLoggedIn(true);
+        }
+      }).catch((err) => {
+        console.log('ошибка проверки токена', err);
+      })
 
     }).catch(() => {
       setInfoTooltipIcon(iconFail);
