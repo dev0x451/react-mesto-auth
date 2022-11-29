@@ -39,7 +39,8 @@ class Auth {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        credentials: 'include'
       },
       body: JSON.stringify({
         "password": password,
@@ -65,4 +66,5 @@ class Auth {
 }
 
 
-export const auth = new Auth({ url: 'https://auth.nomoreparties.co' });
+export const auth = new Auth({ url: 'http://localhost:4000' });
+//export const auth = new Auth({ url: 'https://api.sigma696.students.nomoredomains.club' });

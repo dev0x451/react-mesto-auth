@@ -90,11 +90,24 @@ class Api {
   }
 }
 
+// export const api = new Api({
+//   url: 'https://mesto.nomoreparties.co/v1/cohort-49',
+//   headers: {
+//     authorization: '4a3a5ed7-c33c-4007-ab2f-bb1055621552',
+//     'Content-Type': 'application/json'
+//   }
+// });
+
+// export const api = new Api({
+//   url: 'https://api.sigma696.students.nomoredomains.club',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// });
+
 export const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-49',
+  url: 'http://localhost:4000',
   headers: {
-    authorization: '4a3a5ed7-c33c-4007-ab2f-bb1055621552',
     'Content-Type': 'application/json'
   }
 });
-
