@@ -1,16 +1,7 @@
-// https://auth.nomoreparties.co
-// Список эндпоинтов:
-// / — любой URL, кроме /signup и / signin защищены авторизацией.
-// / signup — регистрация пользователя.
-// / signin — авторизация пользователя.
-
-
 class Auth {
-  constructor({ url }) {
-    // тело конструктора
+  constructor({ url, headers }) {
     this._url = url;
-    // this._authToken = token;
-    // this._cards = [];
+    this._headers = headers;
   }
 
   _checkResponse(res) {
@@ -24,24 +15,19 @@ class Auth {
   signup(email, password) {
     return fetch(`${this._url}/signup`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         "password": password,
         "email": email
       })
     }).then(this._checkResponse)
   }
-
 
   signin(email, password) {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        credentials: 'include'
-      },
+      headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         "password": password,
         "email": email
@@ -50,21 +36,28 @@ class Auth {
 
   }
 
+  signout() {
+    return fetch(`${this._url}/signout`, {
+      method: 'POST',
+      headers: this._headers,
+      credentials: 'include',
+    }).then(this._checkResponse)
 
-  checkToken(token) {
+  }
+
+  checkToken() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
+      headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse)
   }
 
-
-
 }
 
-
-export const auth = new Auth({ url: 'http://localhost:4000' });
-//export const auth = new Auth({ url: 'https://api.sigma696.students.nomoredomains.club' });
+export const auth = new Auth({
+  url: 'https://api.sigma696.students.nomoredomains.club',
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});

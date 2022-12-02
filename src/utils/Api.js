@@ -1,8 +1,6 @@
 class Api {
   constructor({ url, headers }) {
-    // тело конструктора
     this._url = url;
-    // this._authToken = token;
     this._headers = headers;
     this._cards = [];
   }
@@ -17,7 +15,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse)
 
   }
@@ -26,7 +25,7 @@ class Api {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
-
+      credentials: 'include',
       body: JSON.stringify({
         name: cardName,
         link: cardLink
@@ -37,14 +36,16 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
 
     }).then(this._checkResponse)
   }
 
   getUser() {
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse)
   }
 
@@ -52,6 +53,7 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: userName,
         about: userAbout
@@ -63,7 +65,7 @@ class Api {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-
+      credentials: 'include',
       body: JSON.stringify({
         avatar: avatarURL
       })
@@ -75,14 +77,16 @@ class Api {
     if (like) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: 'PUT',
-        headers: this._headers
+        headers: this._headers,
+        credentials: 'include',
 
       }).then(this._checkResponse)
     }
     else {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: this._headers,
+        credentials: 'include',
 
       }).then(this._checkResponse)
 
@@ -90,24 +94,9 @@ class Api {
   }
 }
 
-// export const api = new Api({
-//   url: 'https://mesto.nomoreparties.co/v1/cohort-49',
-//   headers: {
-//     authorization: '4a3a5ed7-c33c-4007-ab2f-bb1055621552',
-//     'Content-Type': 'application/json'
-//   }
-// });
-
-// export const api = new Api({
-//   url: 'https://api.sigma696.students.nomoredomains.club',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// });
-
 export const api = new Api({
-  url: 'http://localhost:4000',
+  url: 'https://api.sigma696.students.nomoredomains.club',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 });

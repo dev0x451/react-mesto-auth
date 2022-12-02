@@ -25,11 +25,3 @@ function Cards({ cards, selectedCard, onCardLike, onCardDelete, onEditProfile, o
 }
 
 export default Cards;
-
-
-      // <Main cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
-
-      // <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-      // <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-      // <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
-      // <ImagePopup cssName="gallery" card={selectedCard} onClose={closeAllPopups} /> )

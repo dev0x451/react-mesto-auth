@@ -19,6 +19,6 @@
 * protected routes
 * React-router-dom (Route, Redirect, Link, etc)
 
-Оцените мой проект на Github Pages: [Проект: Место](https://sigma696.github.io/mesto/)
+Оцените мой проект на Github Pages: [Проект: Место](https://sigma696.github.io/react-mesto-auth/)
 Автор: Аркадий Щапов
 Спасибо за внимание и лайки! :)

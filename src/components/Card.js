@@ -4,6 +4,7 @@ import { useContext } from 'react';
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   const currentUser = useContext(CurrentUserContext);
+
   const isOwn = card?.owner._id === currentUser._id;
   const cardDeleteButtonClassName = (
     `element__delete-button ${isOwn ? 'element__delete-button_active' : ''}`
@@ -40,7 +41,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       </div>
     </article>
   )
-
 }
 
 export default Card;

@@ -33,40 +33,36 @@ function App() {
 
   const history = useHistory();
 
-  useEffect(() => {
+  function loadUserAndCards() {
+
     api.getUser().then((myUser) => {
-
       setCurrentUser(myUser);
-
     }).catch((err) => {
-
       console.log('userinfo not fetched: ', err);
     })
-  }, []);
-  // ^^ вызовется только один раз
 
+    api.getInitialCards().then((cardsData) => {
+      setCards(cardsData);
+    }).catch((err) => {
+      console.log('Cards or userinfo not fetched: ', err);
+    })
+
+  }
 
   useEffect(() => {
 
-    const jwtToken = localStorage.getItem('jwt');
-    if (jwtToken) auth.checkToken(jwtToken).then((res) => {
+    auth.checkToken().then((res) => {
 
-      if (res.data.email) {
-        setUserEmail(res.data.email);
+      if (res.email) {
+
+        loadUserAndCards();
+        setUserEmail(res.email);
         setLoggedIn(true);
       }
     }).catch((err) => {
       console.log('ошибка проверки токена', err);
     })
 
-    api.getInitialCards().then((cardsData) => {
-
-      setCards(cardsData);
-
-    }).catch((err) => {
-
-      console.log('Cards or userinfo not fetched: ', err);
-    })
   }, []);
   // ^^ вызовется только один раз
 
@@ -161,7 +157,7 @@ function App() {
 
     })
       .catch((err) => {
-        console.log('ошибка сохранения аватара: ', err);
+        console.log('ошибка добавления места: ', err);
       })
 
   }
@@ -185,7 +181,7 @@ function App() {
 
     auth.signup(email, password).then((response) => {
 
-      if (response?.data) {
+      if (response) {
         setInfoTooltipIcon(iconSuccess);
         setInfoTooltipText('Вы успешно зарегистрировались!');
         setSignInStatus('signed-up');
@@ -206,13 +202,14 @@ function App() {
 
     auth.signin(email, password).then((response) => {
 
-      localStorage.setItem('jwt', response.token);
+      auth.checkToken().then((res) => {
 
-      auth.checkToken(response.token).then((res) => {
+        if (res.email) {
 
-        if (res.data.email) {
-          setUserEmail(res.data.email);
+          loadUserAndCards();
+          setUserEmail(res.email);
           setLoggedIn(true);
+
         }
       }).catch((err) => {
         console.log('ошибка проверки токена', err);
@@ -230,13 +227,23 @@ function App() {
 
   function handleSignout() {
 
-    localStorage.removeItem('jwt');
-    setUserEmail('');
-    setLoggedIn(false);
+    auth.signout().then((res) => {
+
+      setUserEmail('');
+      setSignInStatus('signed-out');
+      setLoggedIn(false);
+
+    }).catch(() => {
+      setInfoTooltipIcon(iconFail);
+      setInfoTooltipText('Не удалось выйти из системы! Попробуйте ещё раз.');
+      setSignInStatus('signed-in');
+      setIsInfoTooltipPopupOpen(true);
+
+    })
+
   }
 
   return (
-
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page" aria-label="проект Место">
         <div className="page__container">

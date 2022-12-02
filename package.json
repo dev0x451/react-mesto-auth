@@ -15,6 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && scp -r build/* admin@51.250.7.23:/home/admin/mesto-frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
