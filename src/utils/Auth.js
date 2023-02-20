@@ -55,8 +55,16 @@ class Auth {
 
 }
 
+// export const auth = new Auth({
+//   url: 'https://localhost:4000',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
+
 export const auth = new Auth({
-  url: 'https://api.sigma696.students.nomoredomains.club',
+  url: 'https://mesto.schapov.dev/api',
   headers: {
     'Content-Type': 'application/json',
   }

@@ -94,8 +94,15 @@ class Api {
   }
 }
 
+// export const api = new Api({
+//   url: 'https://localhost:4000',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
 export const api = new Api({
-  url: 'https://api.sigma696.students.nomoredomains.club',
+  url: 'https://mesto.schapov.dev/api',
   headers: {
     'Content-Type': 'application/json',
   }
