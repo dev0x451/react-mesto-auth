@@ -1,10 +1,16 @@
 .header__auth-link {
-
+  margin: 0 17px 0 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #fff;
   text-decoration: none;
-
-
 }
+
+@media screen and (max-width: 450px) {
+  .header__auth-link {
+  font-size: 14px;
+  line-height: 18px;
+  }
+}
+

@@ -1,15 +1,16 @@
 .header {
   box-sizing: border-box;
   width: 100%;
-  padding: 45px 0 0;
+  padding: 45px 0 20px;
   color: #fff;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (max-width: 450px) {
   .header {
-    padding: 28px 0 0;
+    padding: 28px 0 20px;
   }
 }

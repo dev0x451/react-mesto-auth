@@ -10,7 +10,8 @@
   border-radius: 2px;
   box-sizing: border-box;
 
-  width: 358px;
+  max-width: 358px;
+  width: 100%;
   height: 50px;
 
   margin-top: 178px;
