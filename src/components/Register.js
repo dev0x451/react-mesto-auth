@@ -29,7 +29,7 @@ function Register({ name, headerCaption, buttonCaption, onSubmit }) {
           <input className="signin__input" placeholder="Пароль" id="password" name="password" type="password" value={password} onChange={handleChangePassword} />
           <div className='signin__bottom'>
             <button type="submit" className="signin__button">{buttonCaption}</button>
-            (name === 'signup') && <Link className="signin__text" to="/sign-in">Уже зарегистрированы? Войти</Link>
+            {(name === 'signup') && <Link className="signin__text" to="/sign-in">Уже зарегистрированы? Войти</Link>}
           </div>
         </form>
       </div>

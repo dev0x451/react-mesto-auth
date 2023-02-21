@@ -1,6 +1,19 @@
 .header__user {
   font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
   color: #fff;
+  max-width: 270px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .header__user {
+    max-width: 170px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header__user {
+    max-width: 107px;
+  }
 }

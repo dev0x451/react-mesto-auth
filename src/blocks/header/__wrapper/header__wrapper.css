@@ -1,6 +1,16 @@
 .header__wrapper {
   display: flex;
   gap: 24px;
-  margin: -34px 0 0;
   align-items: center;
+  margin: 0 17px 0 0;
+  font-size: 18px;
+  line-height: 22px;
+
+}
+
+@media screen and (max-width: 450px) {
+  .header__wrapper {
+  font-size: 14px;
+  line-height: 18px;
+  }
 }
