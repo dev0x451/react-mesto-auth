@@ -55,6 +55,7 @@
 @import url(./blocks/signin/__text/signin__text.css);
 @import url(./blocks/signin/__button/signin__button.css);
 @import url(./blocks/signin/__bottom/signin__bottom.css);
+@import url(./blocks/signin/__top/signin__top.css);
 @import url(./blocks/infotooltip/__icon/infotooltip__icon.css);
 @import url(./blocks/infotooltip/__text/infotooltip__text.css);
 @import url(./blocks/infotooltip/__container/infotooltip__container.css);
