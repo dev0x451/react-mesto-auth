@@ -19,5 +19,6 @@
 * protected routes
 * React-router-dom (Route, Redirect, Link)
 
-Live-демо проекта доступно здесь [Проект: Место](https://mesto.schapov.dev)
+Live-демо проекта доступно здесь: [Проект Место](https://mesto.schapov.dev)
+
 Спасибо за внимание и лайки! :)
